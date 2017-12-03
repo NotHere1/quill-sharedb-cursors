@@ -1,3 +1,53 @@
+### Heroku's Installation Instruction
+
+```sh
+# clones the repo
+git clone git@github.com:NotHere1/quill-sharedb-cursors.git
+cd quill-sharedb-cursors.git
+
+# connects to heroku
+heroku login
+
+# creates the heroku's app repository
+heroku apps:create --region [tokyo|us|eu]
+
+# adds mongo dependency
+heroku addons:create mongolab
+
+# deploys the code the heroku
+git push heroku master
+
+# runs the code
+heroku ps:scale web=1
+
+# visit the editor
+heroku open
+```
+
+### Local Deployment
+
+```sh
+#
+# assume you already have `node`, `npm`, and `docker` installed
+#
+
+# runs mongo
+docker pull mongo:latest
+docker run -p 27017:27017 mongo
+
+# clones repo
+git clone git@github.com:NotHere1/quill-sharedb-cursors.git
+cd quill-sharedb-cursors.git
+
+# installs dependencies
+npm install
+
+# starts app in `http://localhost:3000`
+DEBUG=quill-sharedb-cursors:* npm start
+```
+
+---
+
 # Quill-ShareDB-Cursors
 An attempt at multi cursors sync in a collaborative editing scenario using [Quill](https://quilljs.com/), a [ShareDB](https://github.com/share/sharedb) backend, and the [reedsy/quill-cursors](https://github.com/reedsy/quill-cursors) Quill module. For more info on each component, check their pages/repositories.
 
