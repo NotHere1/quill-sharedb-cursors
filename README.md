@@ -1,3 +1,23 @@
+### Thoughts ?
+
+The editor is the interesting challenge. It lives within the confines of the browser, or the phone. The goal therefore is to lessen the load as much as we humanly can from the browser and offload computation and state manangement to the backend.
+
+Here the same vertical and horizontal scale paradigm still hold true. We can have all client editors serve by an all powerful high availability database or we go small where we load balance our traffic through many small servers.
+
+For this I would advocate for an hybrid approach. Have several cluster of high availability servers backed up by high performance, easy to maintain caches like rabbitMQ or couch. 
+
+Then based on the veracity of changes to any given documents we can shiphon the traffics to either a Consistent, Partitioned system, or an Available, Partitioned system.
+
+### Why did I use this open source editor instead of building one myself ?
+
+--- time constraint
+
+And why reinvent the wheel, when there is a tool that does exactly what you want to build, in the exact same way you would do it.
+
+The crux of the idea is to use the browser / editor in-build javascript event handler to handle all the concurrent editing and off load the state manangement to a data store, or cache. The editor in this case is for all intent and purpose, a UI tool with all it's build-in constraints. The event loop system of javascript can perform reasonably well under low to mid load. But degrades rapidly under heavy loads. It's just a feature of the language.
+
+The mongo system is the score keeper, holding all the state for all it's connected users, past or present. The editor gives you the hallucation of real time changes. But nothing in the world is real. The human eye can only tell the different once changes happen faster than 400 ms or so. Everything you see is near real time, and everything is always will be eventual consistent. It may seems consistent, because the load is still light, and the editor / browser still have bandwidth to deal with IO within a reasonable amount of time. But once you put more than 10 monkeys onto the browser, the limitation of the browser become apparent.  
+
 ### Heroku's Installation Instruction
 
 ```sh
